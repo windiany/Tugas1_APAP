@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments/fragment :: headFragment(title='View All Students')">
+    </head>  
+    <body>   
+    	<h1>All Students</h1>
+        <div class="container">
+        	<table id="studentTable" class="display" style="width:100%">
+        	<thead>
+        		<tr>
+        			<th>No</th>
+        			<th>NPM</th>
+        			<th>Name</th>	
+        			<th>GPA</th>
+        			<th>Status</th>
+        			<th>Action</th>
+        		</tr>
+        	</thead>
+        	<tbody>
+        		<tr th:each="student,iterationStatus: ${students}" th:class="${iterationStatus.odd}?'odd'">
+        			<td th:text="${iterationStatus.count}"></td>
+        			<td th:text="${student.npm}"></td>
+        			<td th:text="${student.name}"></td>
+        			<td th:text="${student.gpa}"></td>
+        			<td th:text="${student.gpa>=3.49}?'Cum Laude!':'Sangat Memuaskan!'"></td>
+        			<td>
+        				<a th:href="'/student/delete/' + ${student.npm}" > Delete Data </a>
+        				<a th:href="'/student/update/' + ${student.npm}" > Update Data </a>
+        			</td>
+        		</tr>
+        	</tbody>
+        	</table>
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/js/jquery.dataTables.min.js"></script>
+<script th:inline="javascript">
+$(document).ready(function() {
+	$('#studentTable').DataTable();
+} );
+</script>
